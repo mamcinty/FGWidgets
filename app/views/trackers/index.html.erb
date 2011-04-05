@@ -1,24 +1,10 @@
-<h1>Listing trackers</h1>
+<h2>Your Trackers</h2>
 
-<table>
-  <tr>
-    <th>User</th>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
+<ul>
 <% @trackers.each do |tracker| %>
-  <tr>
-    <td><%= tracker.user %></td>
-    <td><%= tracker.name %></td>
-    <td><%= link_to 'Show', tracker %></td>
-    <td><%= link_to 'Edit', edit_tracker_path(tracker) %></td>
-    <td><%= link_to 'Destroy', tracker, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+	<li><%= link_to tracker.name, edit_tracker_path(tracker) %></li>
 <% end %>
-</table>
+</ul>
 
 <br />
 

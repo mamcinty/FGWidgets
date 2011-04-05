@@ -1,25 +1,24 @@
-<%= form_for(@tracker) do |f| %>
-  <% if @tracker.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@tracker.errors.count, "error") %> prohibited this tracker from being saved:</h2>
+<%= semantic_form_for(@tracker) do |form| %>
+<% if @tracker.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@tracker.errors.count, "error") %> prohibited this tracker from being saved:</h2>
 
-      <ul>
-      <% @tracker.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+    <ul>
+    <% @tracker.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+  <% form.inputs do %>
+  	<%= form.input :name %>
+	
+	<% form.semantic_fields_for :trackings do |tracking_form| %>
+      <%= tracking_form.inputs :url, :name => "Pages to Track" %>
+	<% end %>
   <% end %>
 
-  <div class="field">
-    <%= f.label :user %><br />
-    <%= f.text_field :user %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= form.buttons %>
+
 <% end %>
