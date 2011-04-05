@@ -42,11 +42,15 @@ class Fundraiser
     @time
   end
   
-  def self.find(profile_name, fundraiser_name)
-    @url = "http://www.firstgiving.com/fundraiser/#{profile_name}/#{fundraiser_name}"
+  def self.find_by_profile_name_and_fundraiser_name(profile_name, fundraiser_name)
+    url = "http://www.firstgiving.com/fundraiser/#{profile_name}/#{fundraiser_name}"
     
+    self.find_by_url(url)
+  end
+
+  def self.find_by_url(url)
     begin
-      page = open(@url)
+      page = open(url)
     rescue
       return nil
     end
