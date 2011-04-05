@@ -1,6 +1,6 @@
 class TrackersController < ApplicationController
-  # GET /trackers
-  # GET /trackers.xml
+  load_and_authorize_resource
+
   def index
     @trackers = Tracker.all
 
@@ -13,7 +13,6 @@ class TrackersController < ApplicationController
   # GET /trackers/1
   # GET /trackers/1.xml
   def show
-    @tracker = Tracker.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,8 +23,11 @@ class TrackersController < ApplicationController
   # GET /trackers/new
   # GET /trackers/new.xml
   def new
-    @tracker = Tracker.new
-
+    @tracker = current_user.trackers.new
+    3.times do
+      @tracker.trackings.build
+    end
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @tracker }
@@ -40,11 +42,11 @@ class TrackersController < ApplicationController
   # POST /trackers
   # POST /trackers.xml
   def create
-    @tracker = Tracker.new(params[:tracker])
+    @tracker = current_user.trackers.new(params[:tracker])
 
     respond_to do |format|
       if @tracker.save
-        format.html { redirect_to(@tracker, :notice => 'Tracker was successfully created.') }
+        format.html { redirect_to(trackers_url, :notice => 'Tracker was successfully created.') }
         format.xml  { render :xml => @tracker, :status => :created, :location => @tracker }
       else
         format.html { render :action => "new" }
@@ -56,11 +58,10 @@ class TrackersController < ApplicationController
   # PUT /trackers/1
   # PUT /trackers/1.xml
   def update
-    @tracker = Tracker.find(params[:id])
 
     respond_to do |format|
       if @tracker.update_attributes(params[:tracker])
-        format.html { redirect_to(@tracker, :notice => 'Tracker was successfully updated.') }
+        format.html { redirect_to(trackers_url, :notice => 'Tracker was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -72,7 +73,7 @@ class TrackersController < ApplicationController
   # DELETE /trackers/1
   # DELETE /trackers/1.xml
   def destroy
-    @tracker = Tracker.find(params[:id])
+
     @tracker.destroy
 
     respond_to do |format|
