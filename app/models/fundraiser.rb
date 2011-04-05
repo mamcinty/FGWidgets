@@ -3,6 +3,9 @@ require 'open-uri'
 class Fundraiser
   include ActiveModel::Validations
   include ActiveModel::Conversion
+  include ActiveModel::Serialization
+  include ActiveModel::Serializers::JSON
+  include ActiveModel::Serializers::Xml
   extend ActiveModel::Naming
   
   attr_accessor :name, :percent, :goal, :raised, :time
@@ -11,6 +14,12 @@ class Fundraiser
     attributes.each do |name, value|
       send("#{name}=", value)
     end
+    
+    @attributes = attributes
+  end
+  
+  def attributes
+    @attributes
   end
   
   def name
@@ -56,7 +65,7 @@ class Fundraiser
 
     time = doc.search("#appealResult header hgroup time").text.strip
     
-    self.new({:name => name, :percent => percent, :goal => goal, :raised => raised, :time => time})
+    self.new({'name' => name, 'percent' => percent, 'goal' => goal, 'raised' => raised, 'time' => time})
   end
   
   def persisted?
