@@ -24,5 +24,16 @@ class Ability
     #   can :update, Article, :published => true
     #
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
+    user ||= User.new # guest user
+    
+    if user.admin?
+      can :manage, :all
+    else
+      can :read, :all
+      can :create, Tracker
+      can :update, Tracker do |tracker|
+        tracker.try(:user) == user
+      end
+    end
   end
 end
