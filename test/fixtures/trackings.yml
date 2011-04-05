@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  tracker: 
+  url: MyString
+  expiration: 2011-04-05
+
+two:
+  tracker: 
+  url: MyString
+  expiration: 2011-04-05

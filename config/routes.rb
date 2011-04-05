@@ -1,4 +1,6 @@
 FGWidgets::Application.routes.draw do
+  resources :trackers
+
   devise_for :users
 
   # The priority is based upon order of creation:
