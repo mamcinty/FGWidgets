@@ -1,15 +1,42 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>User:</b>
-  <%= @tracker.user %>
-</p>
-
-<p>
-  <b>Name:</b>
-  <%= @tracker.name %>
-</p>
-
-
-<%= link_to 'Edit', edit_tracker_path(@tracker) %> |
-<%= link_to 'Back', trackers_path %>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#fundraisers').cycle({
+		fx: 'fade' // choose your transition type, ex: fade, scrollUp, shuffle, etc...
+	});
+	
+	$(".progress_bar").progressbar({ value: 37 });
+});
+</script>
+<div id="fundraisers">
+	<% @tracker.fundraisers.each do |fundraiser| %>
+	<div class="fundraiser">
+		<div class="fundraiser_photo">
+			<%= image_tag fundraiser.photo %>
+		</div>
+		<div class="fundraiser_info">
+			<div class="fundraiser_name"><%= fundraiser.name %></div>
+			<div class="fundraiser_stats">
+				<div class="fundraiser_raised">
+					<%= fundraiser.raised %>
+					<div>Raised</div>
+				</div>
+				<div class="fundraiser_goal">
+					<%= fundraiser.goal %>
+					<div>Goal</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="progress">
+				<div class="progress_bar"></div>
+				<div class="progress_text">
+					<%= fundraiser.percent %> % to goal
+				</div>
+				<input class="percent" type="hidden" value="<%= fundraiser.percent %>">
+			</div>
+			<a href="<%= fundraiser.url %>" class="button">
+				<strong>Donate</strong>
+			</a>
+		</div>
+	</div>
+	<% end %>
+</div>

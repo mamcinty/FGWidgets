@@ -1,0 +1,80 @@
+body {
+	background: #fff;
+	font: 13px/1.231 sans-serif;
+}
+
+.button {
+    background: url("../images/_sprites_buttons.png") repeat scroll 0 -40px transparent;
+    border-radius: 6px 6px 6px 6px;
+    color: white;
+    display: inline;
+    float: left;
+    margin: 10px;
+    padding: 12px 0 7px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 185px;
+}
+
+.button strong {
+    display: block;
+    font-size: 20px;
+    font-weight: normal;
+    padding: 3px 0;
+}
+
+.fundraiser
+{
+	width:600px;
+}
+
+.fundraiser_photo
+{
+	float:left;
+}
+
+.fundraiser_photo img
+{
+	width:175px;
+}
+
+.fundraiser_info
+{
+	float:left;
+	margin-left:25px;
+	text-align: center;
+}
+
+.fundraiser_name
+{
+	color:#0D4975;
+	font-size:18px;
+}
+
+.fundraiser_raised, .fundraiser_goal
+{
+	color:#1BA4DD;
+	float:left;
+	font-size:30px;
+	width:100px;
+}
+
+.fundraiser_raised div, .fundraiser_goal div
+{
+	color:#0B70A6;
+    font-size:13px;
+    text-transform:uppercase;
+}
+
+.progress_text
+{
+	color:#0B70A6;
+	text-transform:uppercase;
+}
+
+.clear
+{
+	clear:both;
+}
