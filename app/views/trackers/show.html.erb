@@ -4,7 +4,14 @@ $(document).ready(function() {
 		fx: 'fade' // choose your transition type, ex: fade, scrollUp, shuffle, etc...
 	});
 	
-	$(".progress_bar").progressbar({ value: 37 });
+	$(".progress").each(function(index, domEle) {
+		var percent = $(domEle).children(".percent").val();
+		$(domEle).children(".progress_bar").progressbar({
+	        value: parseInt(percent)
+	    });
+	
+	});
+
 });
 </script>
 <div id="fundraisers">
@@ -33,7 +40,7 @@ $(document).ready(function() {
 				</div>
 				<input class="percent" type="hidden" value="<%= fundraiser.percent %>">
 			</div>
-			<a href="<%= fundraiser.url %>" class="button">
+			<a href="<%= fundraiser.url %>" class="button" target="_top">
 				<strong>Donate</strong>
 			</a>
 		</div>
