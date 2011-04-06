@@ -1,7 +1,7 @@
-<%= semantic_form_for(@tracker) do |form| %>
+<%= form_for(@tracker) do |form| %>
 <% if @tracker.errors.any? %>
   <div id="error_explanation">
-    <h2><%= pluralize(@tracker.errors.count, "error") %> prohibited this tracker from being saved:</h2>
+    <h3><%= pluralize(@tracker.errors.count, "error") %> prohibited this tracker from being saved:</h3>
 
     <ul>
     <% @tracker.errors.full_messages.each do |msg| %>
@@ -11,14 +11,20 @@
   </div>
 <% end %>
 
-  <% form.inputs do %>
-  	<%= form.input :name %>
-	
-	<% form.semantic_fields_for :trackings do |tracking_form| %>
-      <%= tracking_form.inputs :url, :name => "Pages to Track" %>
+	<h3>Name</h3>
+	<%= form.text_field :name, :size => 20 %>
+
+	<h3>Pages to Track</h3>
+	<div class="trackings">
+	<% form.fields_for :trackings do |tracking| %>
+		<% render 'tracking_fields', :f => tracking %>
 	<% end %>
-  <% end %>
-
-  <%= form.buttons %>
-
+	</div>
+	<div id="add_tracking">
+		<%= link_to_add_association 'Add Page', form, :trackings, {'data-association-insertion-node' => '.trackings', 'data-association-insertion-position' => 'after'} %>
+	</div>
+	<div id="buttons">
+		<%= form.submit %>
+		<%= link_to 'Cancel', trackers_path %>
+	</div>
 <% end %>
