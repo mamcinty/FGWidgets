@@ -8,7 +8,7 @@ class Fundraiser
   include ActiveModel::Serializers::Xml
   extend ActiveModel::Naming
   
-  attr_accessor :name, :percent, :goal, :raised, :time, :photo
+  attr_accessor :name, :percent, :goal, :raised, :time, :photo, :url
   
   FG_FUNDRAISER_BASE_URL = 'http://www.firstgiving.com/fundraiser'
   FG_IMAGES_BASE_URL = 'http://www.firstgiving.com'
@@ -48,6 +48,10 @@ class Fundraiser
   def photo
     @photo
   end
+
+  def url
+    @url
+  end
   
   def self.find_by_profile_name_and_fundraiser_name(profile_name, fundraiser_name)
     url = "#{FG_FUNDRAISER_BASE_URL}/#{profile_name}/#{fundraiser_name}"
@@ -78,7 +82,7 @@ class Fundraiser
     
     photo = "#{FG_IMAGES_BASE_URL}/" + doc.at_css(".photos a img").attr('src').strip
     
-    self.new({'name' => name, 'percent' => percent, 'goal' => goal, 'raised' => raised, 'time' => time, 'photo' => photo})
+    self.new({'name' => name, 'percent' => percent, 'goal' => goal, 'raised' => raised, 'time' => time, 'photo' => photo, 'url' => url})
   end
   
   def persisted?
