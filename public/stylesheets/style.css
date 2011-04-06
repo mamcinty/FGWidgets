@@ -1,0 +1,14 @@
+#account
+{
+	margin: 0.75em 0 0.25em;	
+}
+
+#account label, #account input
+{
+	display:inline;
+}
+
+#account label
+{
+
+}
