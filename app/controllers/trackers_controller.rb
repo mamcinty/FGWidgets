@@ -2,7 +2,11 @@ class TrackersController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @trackers = Tracker.all
+    unless current_user.admin?
+      @trackers = current_user.trackers.all
+    else
+      @trackers = Tracker.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +17,6 @@ class TrackersController < ApplicationController
   # GET /trackers/1
   # GET /trackers/1.xml
   def show
-
     respond_to do |format|
       format.html { render :layout => 'tracker' } # show.html.erb
       format.xml  { render :xml => @tracker }
@@ -23,7 +26,6 @@ class TrackersController < ApplicationController
   # GET /trackers/new
   # GET /trackers/new.xml
   def new
-    @tracker = current_user.trackers.new
     3.times do
       @tracker.trackings.build
     end
@@ -36,7 +38,6 @@ class TrackersController < ApplicationController
 
   # GET /trackers/1/edit
   def edit
-    @tracker = Tracker.find(params[:id])
   end
 
   # POST /trackers
@@ -58,7 +59,6 @@ class TrackersController < ApplicationController
   # PUT /trackers/1
   # PUT /trackers/1.xml
   def update
-
     respond_to do |format|
       if @tracker.update_attributes(params[:tracker])
         format.html { redirect_to(trackers_url, :notice => 'Tracker was successfully updated.') }
@@ -73,7 +73,6 @@ class TrackersController < ApplicationController
   # DELETE /trackers/1
   # DELETE /trackers/1.xml
   def destroy
-
     @tracker.destroy
 
     respond_to do |format|
