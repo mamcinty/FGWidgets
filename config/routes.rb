@@ -1,7 +1,11 @@
 FGWidgets::Application.routes.draw do
   get "home/index"
 
-  resources :trackers
+  resources :trackers do
+    member do
+      get 'code'
+    end
+  end
 
   devise_for :users
 
