@@ -1,11 +1,17 @@
 <h2>Your Trackers</h2>
 
-<ul>
-<% @trackers.each do |tracker| %>
-	<li><%= link_to tracker.name, edit_tracker_path(tracker) %></li>
-<% end %>
-</ul>
-
-<br />
-
-<%= link_to 'New Tracker', new_tracker_path %>
+<div id="trackers" class="grid_6">
+	<table>
+	<% @trackers.each do |tracker| %>
+		<tr>
+			<td><%= link_to tracker.name, edit_tracker_path(tracker) %></td>
+			<td><%= link_to 'Show Embedding Code', code_tracker_url(tracker), :method => 'get', :remote => true %></td>
+		</tr>
+		<% end %>
+	</table>
+</div>
+<div id="code" class="grid_6">
+</div>
+<div id="links" class="grid_12">
+	<%= link_to 'New Tracker', new_tracker_path %>
+</div>

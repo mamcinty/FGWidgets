@@ -1,0 +1,2 @@
+page << "$('#code').html('" + escape_javascript(render(:partial =>
+'code')) + "')"
