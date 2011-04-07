@@ -53,6 +53,10 @@ class Fundraiser
     @url
   end
   
+  def has_goal?
+    !goal.nil?
+  end
+  
   def self.find_by_profile_name_and_fundraiser_name(profile_name, fundraiser_name)
     url = "#{FG_FUNDRAISER_BASE_URL}/#{profile_name}/#{fundraiser_name}"
     
@@ -67,18 +71,24 @@ class Fundraiser
     end
     
     doc = Nokogiri::HTML(page)
+
+    if doc.at_css("#memory-of")
+      name = "In memory of " + doc.at_css("#memory-of span").text.strip
+    else
+      name = doc.at_css(".eventname").text.strip
+    end
+
+    unless doc.at_css(".goal").nil?
+      percent = doc.at_css("#percent").attr('value')
+
+      doc.at_css(".goal").at_css("div").remove
+      goal = doc.at_css(".goal").text.strip
+
+      doc.at_css(".raised").at_css("div").remove
+      raised = doc.at_css(".raised").text.strip
     
-    name = doc.at_css(".eventname").text.strip
-
-    percent = doc.at_css("#percent").attr('value')
-
-    doc.at_css(".goal").at_css("div").remove
-    goal = doc.at_css(".goal").text.strip
-
-    doc.at_css(".raised").at_css("div").remove
-    raised = doc.at_css(".raised").text.strip
-
-    time = doc.search("#appealResult header hgroup time").text.strip
+      time = doc.search("#appealResult header hgroup time").text.strip
+    end
     
     photo = "#{FG_IMAGES_BASE_URL}/" + doc.at_css(".photos a img").attr('src').strip
     

@@ -22,24 +22,26 @@ $(document).ready(function() {
 		</div>
 		<div class="fundraiser_info">
 			<div class="fundraiser_name"><%= fundraiser.name %></div>
-			<div class="fundraiser_stats">
-				<div class="fundraiser_raised">
-					<%= fundraiser.raised %>
-					<div>Raised</div>
+			<% if fundraiser.has_goal? %>
+				<div class="fundraiser_stats">
+					<div class="fundraiser_raised">
+						<%= fundraiser.raised %>
+						<div>Raised</div>
+					</div>
+					<div class="fundraiser_goal">
+						<%= fundraiser.goal %>
+						<div>Goal</div>
+					</div>
 				</div>
-				<div class="fundraiser_goal">
-					<%= fundraiser.goal %>
-					<div>Goal</div>
+				<div class="clear"></div>
+				<div class="progress">
+					<div class="progress_bar"></div>
+					<div class="progress_text">
+						<%= fundraiser.percent %> % to goal
+					</div>
+					<input class="percent" type="hidden" value="<%= fundraiser.percent %>">
 				</div>
-			</div>
-			<div class="clear"></div>
-			<div class="progress">
-				<div class="progress_bar"></div>
-				<div class="progress_text">
-					<%= fundraiser.percent %> % to goal
-				</div>
-				<input class="percent" type="hidden" value="<%= fundraiser.percent %>">
-			</div>
+			<% end %>
 			<a href="<%= fundraiser.url %>" class="button" target="_top">
 				<strong>Donate</strong>
 			</a>
