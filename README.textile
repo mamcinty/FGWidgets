@@ -1,0 +1,20 @@
+h1. FGWidgets
+
+h2. What is this?
+
+A tool to help create widgets to showcase your FirstGiving campaigns.
+
+h2. Why do I need it?
+
+FirstGiving doesn't (currently) provide any way of showing fundraiser progress on your own website. This tool allows you to enter the URLs to your FirstGiving fundraiser pages and generates a widget (by screen scraping the fundraiser pages) that you can embed on your website.
+
+h2. How does it work?
+
+FGWidgets allows you to create "trackers" (groups of fundraising pages to track) and generates a page that gets embedded on your site into an iframe.  The page cycles through your specified fundraisers using the jQuery Cycle plugin so that each fundraiser gets equal eye time on your site.  XML feeds are also available for each tracker if you don't like the widget that we provide.  Of course, since it's on Github, you can just customize the application itself and deploy it locally. ;-)
+ 
+h2. What does it look like?
+
+Something like this...
+<a href='http://fgwidgets.stillcompiling.com'><img alt='FGWidgets sample image' src='http://fgwidgets.stillcompiling.com/images/sample.jpg' border='0' /></a>
+
+Copyright (c) 2011 Matt McIntyre
