@@ -1,0 +1,57 @@
+require 'bundler/capistrano'
+
+set :user, "username"
+set :domain, "example.com"
+set :project, 'FGWidgets'
+set :applicationdir, "/home/#{user}/domains/#{domain}"
+
+set :scm, 'git'
+set :repository,  "git://github.com/mamcinty/FGWidgets.git"
+set :deploy_via, :remote_cache
+set :git_enable_submodules, 1 # if you have vendored rails
+set :branch, 'master'
+set :git_shallow_clone, 1
+set :scm_verbose, true
+
+# roles (servers)
+role :web, domain
+role :app, domain
+role :db,  domain, :primary => true
+
+# deploy config
+set :deploy_to, applicationdir
+set :deploy_via, :export
+
+# additional settings
+default_run_options[:pty] = true
+set :ssh_options, { :forward_agent => true }
+ssh_options[:keys] = [File.join(ENV["HOME"], ".ssh", "id_rsa")]
+set :chmod755, "app config db lib public vendor script script/* public/disp*"
+set :use_sudo, false
+
+after 'deploy:update_code', 'deploy:symlink_database_configuration', 'deploy:symlink_production_sqlite_database'
+
+namespace :deploy do
+  task :start, :roles => :app do
+    run "touch #{current_release}/tmp/restart.txt"
+  end
+
+  task :stop, :roles => :app do
+    # Do nothing.
+  end
+
+  desc "Restart Application"
+  task :restart, :roles => :app do
+    run "touch #{current_release}/tmp/restart.txt"
+  end
+
+  desc "Link in the production database.yml" 
+  task :symlink_database_configuration, :roles => :app do
+    run "ln -nfs #{deploy_to}/#{shared_dir}/config/database.yml #{release_path}/config/database.yml" 
+  end
+
+  desc "Link in the production sqlite database" 
+  task :symlink_production_sqlite_database, :roles => :app do
+    run "ln -nfs #{deploy_to}/#{shared_dir}/db/production.sqlite3 #{release_path}/db/production.sqlite3" 
+  end
+end
