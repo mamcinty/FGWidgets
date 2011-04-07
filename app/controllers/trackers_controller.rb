@@ -23,6 +23,12 @@ class TrackersController < ApplicationController
     end
   end
 
+  def code
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   # GET /trackers/new
   # GET /trackers/new.xml
   def new

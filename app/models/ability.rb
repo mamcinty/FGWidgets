@@ -30,7 +30,7 @@ class Ability
       can :manage, :all
     else
       can :show, Tracker
-      can [:index, :new, :create], Tracker unless user.current_sign_in_at.nil?
+      can [:index, :code, :new, :create], Tracker unless user.current_sign_in_at.nil?
       can [:update, :destroy], Tracker do |tracker|
         tracker.try(:user) == user
       end
